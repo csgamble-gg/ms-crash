@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms-crash
+data:
+  SERVICE_NAME: ms-crash
+  NODE_ENV: staging
+  LOG_LEVEL: notice

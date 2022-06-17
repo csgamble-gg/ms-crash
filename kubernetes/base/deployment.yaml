@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-crash
+  labels:
+    app: ms-crash
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-crash
+  template:
+    metadata:
+      labels:
+        app: ms-crash
+    spec:
+      imagePullSecrets:
+        - name: gcr-json-key
+      containers:
+        - name: ms-crash
+          envFrom:
+            - secretRef:
+                name: kafka-secrets
+            - secretRef:
+                name: mongo-secrets
+            - secretRef:
+                name: redis-secrets
+            - configMapRef:
+                name: ms-crash
+          imagePullPolicy: Always
+          image: ms-crash
+          resources:
+            requests:
+              memory: 300Mi
+              cpu: 100m
+            limits:
+              memory: 700Mi
+              cpu: 500m
